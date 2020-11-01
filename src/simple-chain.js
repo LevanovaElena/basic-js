@@ -1,25 +1,38 @@
 const CustomError = require("../extensions/custom-error");
 
 const chainMaker = {
-  getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+
+  str: '', //сформированная строка
+  array: [], //массив элементов строки
+
+  getLength() //getLength возвращает текущую длину цепи в виде числа;
+  {
+    return this.array.length;
   },
-  addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value) //+addLink(value) добавляет звено, содержащее строковое представление value к цепочке;
+  {
+    this.array.push('( ' + value + ' )');
+    return this;
   },
-  removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  removeLink(position) //+removeLink(position) удаляет звено цепи, находящееся в заданном положении; 
+  {
+    if (!Number.isInteger(position) || (position - 1) >= this.array.length || (position - 1) < 0) {
+      this.array = [];
+      throw new Error('Not correct position!');
+    }
+    this.array.splice(position - 1, 1);
+    return this;
   },
-  reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  reverseChain() //+reverseChain разворачивает цепь задом наперед;
+  {
+    this.array.reverse();
+    return this;
   },
-  finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  finishChain() //finishChain завершает цепь и возвращает ее.
+  {
+    this.str = this.array.join('~~');
+    this.array = [];
+    return this.str;
   }
 };
 
